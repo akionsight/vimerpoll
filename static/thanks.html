@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thank You for Voting!</title>
+    <style>
+      /* CSS Styles */
+      body {
+          background-color: #495153;
+          color: white;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      #vimerpoll-logo {
+          display: block;
+          margin: 20px auto;
+          width: 150px;
+          height: auto;
+      }
+
+      .container {
+          text-align: center;
+          margin-top: 50px;
+      }
+
+      .btn {
+          padding: 10px 20px;
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin: 10px;
+          text-decoration: none;
+      }
+
+      .btn-primary {
+          background-color: #007bff;
+          color: white;
+      }
+
+      .btn-primary:hover {
+          background-color: #0056b3;
+      }
+
+      .btn-success {
+          background-color: #28a745;
+          color: white;
+      }
+
+      .btn-success:hover {
+          background-color: #1e7e34;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="vimerpoll.svg" alt="Vimerpoll Logo" id="vimerpoll-logo">
+      <h1 class="display-4">Thank You for Voting!</h1>
+      <p class="lead">Your vote has been successfully recorded</p>
+      <div>
+        <button class="btn btn-success" onclick="viewResults()">View Poll Results</button>
+      </div>
+    </div>
+
+    <script>
+      function viewResults() {
+        // var poll = localStorage.getItem("mostRecentPoll");
+        setTimeout(2000);
+        window.location.href = `/static/results.html/`; // Replace with your results page URL
+      }
+    </script>
+  </body>
+</html>

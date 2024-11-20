@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poll Results</title>
+    <style>
+      /* CSS Styles */
+      body {
+          background-color: #495153;
+          color: white;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      #vimerpoll-logo {
+          display: block;
+          margin: 20px auto;
+          width: 150px;
+          height: auto;
+      }
+
+      .container {
+          text-align: center;
+          margin-top: 50px;
+          padding: 0 20px;
+      }
+
+      .result-list {
+          margin-top: 30px;
+          list-style: none;
+          padding: 0;
+      }
+
+      .result-item {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px;
+          margin: 10px 0;
+          background-color: #60676d;
+          border-radius: 5px;
+      }
+
+      .result-item span {
+          font-size: 18px;
+      }
+
+      .btn {
+          margin-top: 30px;
+          padding: 10px 20px;
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          text-decoration: none;
+          background-color: #007bff;
+          color: white;
+      }
+
+      .btn:hover {
+          background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/static/vimerpoll.svg" alt="Vimerpoll Logo" id="vimerpoll-logo">
+      <h1 class="display-4">Poll Results</h1>
+      <p class="lead">See how the votes are distributed below:</p>
+
+      <ul class="result-list" id="result-list">
+        <!-- Results will be dynamically inserted here -->
+        <p id="loading" class="text-warning">Loading results...</p>
+      </ul>
+
+      <a href="/static/results.html" class="btn">Refresh Results</a>
+    </div>
+
+    <script>
+      var poll = localStorage.getItem("mostRecentPoll");
+      const apiEndpoint = `http://127.0.0.1:8000/results/${poll}`; // Replace with your API endpoint
+
+      // Fetch poll results from the API
+      async function fetchResults() {
+        try {
+          const response = await fetch(apiEndpoint);
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+          const results = await response.json(); // Assume response is an array of objects
+          displayResults(results);
+        } catch (error) {
+          console.error(error);
+          document.getElementById('loading').textContent = 'Failed to load results.';
+        }
+      }
+
+      // Display the results
+      function displayResults(results) {
+        const resultList = document.getElementById('result-list');
+        resultList.innerHTML = ''; // Clear the loading text or any previous results
+
+        results.forEach(result => {
+          const listItem = document.createElement('li');
+          listItem.className = 'result-item';
+
+          const optionName = document.createElement('span');
+          optionName.textContent = result.option;
+
+          const voteCount = document.createElement('span');
+          voteCount.textContent = `${result.votes} votes`;
+
+          listItem.appendChild(optionName);
+          listItem.appendChild(voteCount);
+
+          resultList.appendChild(listItem);
+        });
+      }
+
+      // Fetch and display results on page load
+      window.onload = fetchResults;
+    </script>
+  </body>
+</html>
