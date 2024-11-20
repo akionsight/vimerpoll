@@ -1,4 +1,4 @@
-# vimerpoll
+# VimerPoll
 
 ## The Open-Source StrawPoll Replacement
 
