@@ -1,3 +1,6 @@
-create table polls (poll_id varchar(50) ,question varchar(255), options varchar(255), votes varchar(255))
-
-insert into table polls ()
+CREATE TABLE polls (
+    poll_id VARCHAR(50) PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    options TEXT,
+    votes TEXT
+);
